@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import PostCard from "@/components/PostCard";
-
-export const dynamic = "force-dynamic";
+import { connection } from "next/server";
 
 export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
+  await connection();
   const { slug } = await params;
 
   const tag = await prisma.tag.findUnique({

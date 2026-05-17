@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-
-export const dynamic = "force-dynamic";
+import { connection } from "next/server";
 
 export default async function CategoriesPage() {
+  await connection();
+
   const categories = await prisma.category.findMany({
     include: { _count: { select: { posts: true } } },
     orderBy: { name: "asc" },

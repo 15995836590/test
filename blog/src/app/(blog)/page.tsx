@@ -1,9 +1,10 @@
 import PostCard from "@/components/PostCard";
 import { prisma } from "@/lib/prisma";
-
-export const dynamic = "force-dynamic";
+import { connection } from "next/server";
 
 export default async function HomePage() {
+  await connection();
+
   const posts = await prisma.post.findMany({
     where: { published: true },
     include: { category: true, tags: true, _count: { select: { comments: true } } },
