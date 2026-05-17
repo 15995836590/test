@@ -1,0 +1,129 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
+interface Category { id: string; name: string }
+interface Tag { id: string; name: string }
+
+export default function NewPostPage() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetch("/api/categories").then((r) => r.json()).then(setCategories);
+    fetch("/api/tags").then((r) => r.json()).then(setTags);
+  }, []);
+
+  async function handleSubmit(published: boolean) {
+    if (!title || !content) { toast.error("标题和内容不能为空"); return; }
+    setLoading(true);
+    const res = await fetch("/api/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, content, excerpt, coverImage, categoryId, tagIds: selectedTags, published }),
+    });
+    if (res.ok) {
+      toast.success(published ? "发布成功" : "已保存草稿");
+      router.push("/admin/posts");
+    } else {
+      toast.error("保存失败");
+    }
+    setLoading(false);
+  }
+
+  return (
+    <div className="max-w-4xl">
+      <h1 className="text-2xl font-bold mb-6">写文章</h1>
+
+      <div className="space-y-4">
+        <input
+          type="text"
+          placeholder="文章标题"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl border border-border bg-card text-lg font-medium focus:outline-none focus:ring-2 focus:ring-accent/30"
+        />
+
+        <input
+          type="text"
+          placeholder="封面图 URL（可选）"
+          value={coverImage}
+          onChange={(e) => setCoverImage(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-xl border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-accent/30"
+        />
+
+        <div className="grid grid-cols-2 gap-4">
+          <select
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            className="px-4 py-2.5 rounded-xl border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-accent/30"
+          >
+            <option value="">选择分类</option>
+            {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+
+          <div className="flex flex-wrap gap-2 items-center px-4 py-2.5 rounded-xl border border-border bg-card">
+            {tags.map((tag) => (
+              <label key={tag.id} className="flex items-center gap-1 text-xs cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedTags.includes(tag.id)}
+                  onChange={(e) => {
+                    if (e.target.checked) setSelectedTags([...selectedTags, tag.id]);
+                    else setSelectedTags(selectedTags.filter((t) => t !== tag.id));
+                  }}
+                  className="rounded"
+                />
+                {tag.name}
+              </label>
+            ))}
+            {tags.length === 0 && <span className="text-xs text-muted">暂无标签</span>}
+          </div>
+        </div>
+
+        <textarea
+          placeholder="文章摘要（可选，留空则自动截取）"
+          rows={2}
+          value={excerpt}
+          onChange={(e) => setExcerpt(e.target.value)}
+          className="w-full px-4 py-2.5 rounded-xl border border-border bg-card text-sm resize-none focus:outline-none focus:ring-2 focus:ring-accent/30"
+        />
+
+        <textarea
+          placeholder="正文内容（支持 Markdown）"
+          rows={20}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl border border-border bg-card text-sm font-mono resize-y focus:outline-none focus:ring-2 focus:ring-accent/30"
+        />
+
+        <div className="flex gap-3">
+          <button
+            onClick={() => handleSubmit(true)}
+            disabled={loading}
+            className="px-6 py-2.5 bg-accent text-white rounded-full text-sm font-medium hover:bg-accent-hover transition-colors disabled:opacity-50"
+          >
+            发布
+          </button>
+          <button
+            onClick={() => handleSubmit(false)}
+            disabled={loading}
+            className="px-6 py-2.5 border border-border rounded-full text-sm hover:bg-card transition-colors disabled:opacity-50"
+          >
+            保存草稿
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
