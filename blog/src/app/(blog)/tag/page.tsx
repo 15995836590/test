@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { connection } from "next/server";
+import { headers } from "next/headers";
 
 export default async function TagsPage() {
-  await connection();
+  await headers();
 
   const tags = await prisma.tag.findMany({
     include: { _count: { select: { posts: true } } },

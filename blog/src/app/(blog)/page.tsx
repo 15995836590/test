@@ -1,9 +1,9 @@
 import PostCard from "@/components/PostCard";
 import { prisma } from "@/lib/prisma";
-import { connection } from "next/server";
+import { headers } from "next/headers";
 
 export default async function HomePage() {
-  await connection();
+  await headers();
 
   const posts = await prisma.post.findMany({
     where: { published: true },

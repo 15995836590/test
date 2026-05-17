@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { connection } from "next/server";
+import { headers } from "next/headers";
 
 export default async function CategoriesPage() {
-  await connection();
+  await headers();
 
   const categories = await prisma.category.findMany({
     include: { _count: { select: { posts: true } } },

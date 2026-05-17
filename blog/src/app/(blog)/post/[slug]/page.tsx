@@ -6,10 +6,10 @@ import { zhCN } from "date-fns/locale";
 import { prisma } from "@/lib/prisma";
 import CommentSection from "@/components/CommentSection";
 import Link from "next/link";
-import { connection } from "next/server";
+import { headers } from "next/headers";
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  await connection();
+  await headers();
   const { slug } = await params;
 
   const post = await prisma.post.findUnique({
