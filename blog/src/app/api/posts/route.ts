@@ -38,10 +38,11 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { title, content, excerpt, coverImage, categoryId, tagIds, published } = body;
 
-  const slug = title
+  const asciiPart = title
     .toLowerCase()
-    .replace(/[^a-z0-9一-龥]+/g, "-")
-    .replace(/(^-|-$)/g, "") + "-" + Date.now().toString(36);
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+  const slug = (asciiPart || "post") + "-" + Date.now().toString(36);
 
   const post = await prisma.post.create({
     data: {

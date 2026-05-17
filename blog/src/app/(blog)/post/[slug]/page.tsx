@@ -11,9 +11,10 @@ import { headers } from "next/headers";
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   await headers();
   const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug);
 
   const post = await prisma.post.findUnique({
-    where: { slug },
+    where: { slug: decodedSlug },
     include: { category: true, tags: true },
   });
 

@@ -2,6 +2,23 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+export async function PATCH() {
+  const posts = await prisma.post.findMany();
+  const updated = [];
+  for (const post of posts) {
+    if (/[^\x00-\x7F]/.test(post.slug)) {
+      const asciiPart = post.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+      const newSlug = (asciiPart || "post") + "-" + Date.now().toString(36);
+      await prisma.post.update({ where: { id: post.id }, data: { slug: newSlug } });
+      updated.push({ old: post.slug, new: newSlug });
+    }
+  }
+  return NextResponse.json({ updated });
+}
+
 export async function GET() {
   try {
     const existing = await prisma.user.findUnique({ where: { email: "admin@blog.com" } });
