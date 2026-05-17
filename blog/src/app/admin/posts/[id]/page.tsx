@@ -4,6 +4,7 @@ import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import AdminShell from "@/components/AdminShell";
+import ImageUpload from "@/components/ImageUpload";
 
 interface Category { id: string; name: string }
 interface Tag { id: string; name: string }
@@ -67,13 +68,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           className="w-full px-4 py-3 rounded-xl border border-border bg-card text-lg font-medium focus:outline-none focus:ring-2 focus:ring-accent/30"
         />
 
-        <input
-          type="text"
-          placeholder="封面图 URL（可选）"
-          value={coverImage}
-          onChange={(e) => setCoverImage(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-xl border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-accent/30"
-        />
+        <ImageUpload value={coverImage} onChange={setCoverImage} />
 
         <div className="grid grid-cols-2 gap-4">
           <select
