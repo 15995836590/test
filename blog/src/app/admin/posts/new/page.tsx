@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import AdminShell from "@/components/AdminShell";
 
 interface Category { id: string; name: string }
 interface Tag { id: string; name: string }
@@ -42,6 +43,7 @@ export default function NewPostPage() {
   }
 
   return (
+    <AdminShell>
     <div className="max-w-4xl">
       <h1 className="text-2xl font-bold mb-6">写文章</h1>
 
@@ -125,5 +127,6 @@ export default function NewPostPage() {
         </div>
       </div>
     </div>
+    </AdminShell>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import AdminShell from "@/components/AdminShell";
 
 interface Post {
   id: string;
@@ -43,6 +44,7 @@ export default function AdminPostsPage() {
   }
 
   return (
+    <AdminShell>
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">文章管理</h1>
@@ -98,5 +100,6 @@ export default function AdminPostsPage() {
         {posts.length === 0 && <p className="text-center py-8 text-muted">暂无文章</p>}
       </div>
     </div>
+    </AdminShell>
   );
 }

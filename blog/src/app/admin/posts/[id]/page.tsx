@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import AdminShell from "@/components/AdminShell";
 
 interface Category { id: string; name: string }
 interface Tag { id: string; name: string }
@@ -53,6 +54,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
   }
 
   return (
+    <AdminShell>
     <div className="max-w-4xl">
       <h1 className="text-2xl font-bold mb-6">编辑文章</h1>
 
@@ -146,5 +148,6 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
         </div>
       </div>
     </div>
+    </AdminShell>
   );
 }

@@ -5,6 +5,7 @@ import { Trash2, Reply } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { zhCN } from "date-fns/locale";
 import toast from "react-hot-toast";
+import AdminShell from "@/components/AdminShell";
 
 interface Comment {
   id: string;
@@ -59,6 +60,7 @@ export default function AdminCommentsPage() {
   }
 
   return (
+    <AdminShell>
     <div>
       <h1 className="text-2xl font-bold mb-6">评论管理</h1>
 
@@ -125,5 +127,6 @@ export default function AdminCommentsPage() {
         {comments.length === 0 && <p className="text-center py-8 text-muted">暂无评论</p>}
       </div>
     </div>
+    </AdminShell>
   );
 }

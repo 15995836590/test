@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import AdminShell from "@/components/AdminShell";
 
 interface Category { id: string; name: string; slug: string; _count: { posts: number } }
 
@@ -42,6 +43,7 @@ export default function AdminCategoriesPage() {
   }
 
   return (
+    <AdminShell>
     <div>
       <h1 className="text-2xl font-bold mb-6">分类管理</h1>
 
@@ -86,5 +88,6 @@ export default function AdminCategoriesPage() {
         {categories.length === 0 && <p className="text-center py-8 text-muted">暂无分类</p>}
       </div>
     </div>
+    </AdminShell>
   );
 }
