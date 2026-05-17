@@ -1,6 +1,8 @@
 import PostCard from "@/components/PostCard";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const posts = await prisma.post.findMany({
     where: { published: true },

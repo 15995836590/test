@@ -7,6 +7,8 @@ import { prisma } from "@/lib/prisma";
 import CommentSection from "@/components/CommentSection";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 

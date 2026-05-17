@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import PostCard from "@/components/PostCard";
 
+export const dynamic = "force-dynamic";
+
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
