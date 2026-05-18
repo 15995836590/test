@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, FolderOpen, MessageSquare, LogOut } from "lucide-react";
+import { LayoutDashboard, FileText, FolderOpen, MessageSquare, Settings, LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -29,6 +29,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
     { href: "/admin/posts", label: "文章", icon: FileText },
     { href: "/admin/categories", label: "分类", icon: FolderOpen },
     { href: "/admin/comments", label: "评论", icon: MessageSquare },
+    { href: "/admin/settings", label: "设置", icon: Settings },
   ];
 
   return (
