@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Blog - 个人博客网站
 
-## Getting Started
+一个使用 Vibe Coding 方式搭建的个人博客网站，全程由 AI 编写代码，不写一行代码完成从开发到部署。
 
-First, run the development server:
+## 在线访问
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 前台：https://my-blog-ten-virid.vercel.app
+- 后台：https://my-blog-ten-virid.vercel.app/admin
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 功能
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**前台**
+- 文章列表与详情展示
+- 分类和标签浏览
+- 评论留言
+- 暗色模式
+- 响应式设计（手机/电脑自适应）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**后台**
+- 文章发布、编辑、删除（支持 Markdown）
+- 封面图片上传
+- 分类管理
+- 评论查看与回复
+- 数据统计仪表盘
 
-## Learn More
+## 技术栈
 
-To learn more about Next.js, take a look at the following resources:
+| 技术 | 用途 |
+|------|------|
+| Next.js 16 | 全栈框架 |
+| Tailwind CSS | 样式（Apple 风格） |
+| Prisma | 数据库 ORM |
+| PostgreSQL (Neon) | 云数据库 |
+| NextAuth.js | 登录认证 |
+| Vercel | 部署托管 |
+| Vercel Blob | 图片存储 |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 项目背景
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+本项目是一次 Vibe Coding 实践——通过自然语言向 AI 描述需求，AI 自动完成所有代码编写和问题修复。整个过程记录为一篇零基础教程，详见 [tutorial.md](tutorial.md)。
